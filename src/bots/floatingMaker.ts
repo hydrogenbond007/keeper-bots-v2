@@ -32,11 +32,12 @@ type State = {
 	openOrders: Map<number, Array<Order>>;
 };
 
-const MARKET_UPDATE_COOLDOWN_SLOTS = 30; // wait slots before updating market position
+const MARKET_UPDATE_COOLDOWN_SLOTS = 6; // wait slots before updating market position
 
 enum METRIC_TYPES {
 	sdk_call_duration_histogram = 'sdk_call_duration_histogram',
 	try_make_duration_histogram = 'try_make_duration_histogram',
+	sdk_call_heatmap = 'sdk_call_duration_heatmap',
 	runtime_specs = 'runtime_specs',
 	mutex_busy = 'mutex_busy',
 	errors = 'errors',
@@ -88,7 +89,7 @@ export class FloatingPerpMakerBot implements Bot {
 	/**
 	 * The max amount of quote to spend on each order.
 	 */
-	private MAX_TRADE_SIZE_QUOTE = 1000;
+	private MAX_TRADE_SIZE_QUOTE = 600;
 
 	private watchdogTimerMutex = new Mutex();
 	private watchdogTimerLastPatTime = Date.now();
